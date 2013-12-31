@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<f:view>
+		<h:head></h:head>
+		<h:body>
+
+			<rich:panel header="Cantones">
+				<!-- <a4j:outputPanel id="cantonElegido">
+					<h:outputText value="Datos almacenados!"
+						rendered="#{not empty cantonesManagedBean.usuario.cantonUsuarios}" />
+				</a4j:outputPanel> -->
+				<h:form>
+					<h:outputText value="Nombre" for="txtNombre" />
+					<h:inputText required="true" requiredMessage="Campo obligatorio"
+						id="txtNombre"
+						value="#{cantonesManagedBean.usuario.loginUsuarios}" />
+					<h:outputText value="Password" for="txtPassword" />
+					<h:inputSecret required="true" requiredMessage="Campo obligatorio"
+						id="txtPassword"
+						value="#{cantonesManagedBean.usuario.passwordUsuarios}" />
+					<h:outputText value="Cantones" />
+					<rich:select value="#{cantonesManagedBean.usuario.cantonUsuarios}">
+						<f:selectItems value="#{cantonesManagedBean.listaCantones}"
+							id="itemMenu" var="item" itemLabel="#{item.descripcionCanton}"
+							itemValue="#{item.idCanton}" itemDisabled="true" />
+					</rich:select>
+					<br />
+					<a4j:commandButton id="enviar" value="Guardar datos"
+						render="tablaUsuarios"
+						action="#{cantonesManagedBean.guardarDatos()}" execute="@form" />
+					<br />
+				</h:form>
+				<rich:dataTable value="#{cantonesManagedBean.listaUsuarioLocal}"
+					var="usuariosItem" id="tablaUsuarios">
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Usuario" />
+						</f:facet>
+						<h:outputText value="#{usuariosItem.loginUsuarios}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Canton" />
+						</f:facet>
+						<h:outputText value="#{usuariosItem.cantonUsuarios}" />
+					</rich:column>
+				</rich:dataTable>
+
+			</rich:panel>
+
+		</h:body>
+	</f:view>
+</ui:composition>
